@@ -21,14 +21,17 @@
     }
 
     /* ── Print Table Wrapper (screen: invisible blocks) ── */
-    .ppt,
-    .ppt thead,
-    .ppt tfoot,
-    .ppt tbody,
-    .ppt tr,
-    .ppt > thead > tr > td,
-    .ppt > tfoot > tr > td,
-    .ppt > tbody > tr > td {
+    /* Use direct child selectors to avoid affecting nested tables like .data-table */
+    table.ppt,
+    table.ppt > thead,
+    table.ppt > tfoot,
+    table.ppt > tbody,
+    table.ppt > thead > tr,
+    table.ppt > tfoot > tr,
+    table.ppt > tbody > tr,
+    table.ppt > thead > tr > td,
+    table.ppt > tfoot > tr > td,
+    table.ppt > tbody > tr > td {
       display: block;
       width: 100%;
       padding: 0;
@@ -262,10 +265,7 @@
       margin-top: 2px;
     }
 
-    /* ── Slim Running Header (hidden on screen, shows in print thead) ── */
-    .running-header {
-      display: none;
-    }
+
 
     /* ── Full-width dark blue Footer Bar ── */
     .footer-bar {
@@ -294,9 +294,13 @@
 
     /* ══════════════════════════════════════════
        PRINT STYLES
-       Uses <table><thead> approach for reliable
-       repeating headers on every printed page.
     ══════════════════════════════════════════ */
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
     @media print {
       * {
         -webkit-print-color-adjust: exact !important;
@@ -305,181 +309,134 @@
 
       @page {
         size: A4;
-        margin: 14mm 10mm 14mm 10mm;
+        margin: 0; /* Pure control via native table-rows */
       }
 
       body {
         background: #fff !important;
-        font-size: 13px;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
       }
 
-      /* ── The print table becomes a real table ── */
-      .ppt {
+      /* ── NATIVE TABLE-ROW LOCK (Zero Overlap Guaranteed) ── */
+      .print-wrapper-table {
         display: table;
         width: 100%;
         border-collapse: collapse;
       }
 
-      .ppt > thead {
-        /* display: table-header-group makes thead repeat on every page — this is the key */
-        display: table-header-group;
+      .print-wrapper-table > thead {
+        display: table-header-group; /* Native Repeating Zone: Chrome MUST reserve this space before tbody */
       }
 
-      .ppt > tfoot {
-        /* display: table-footer-group makes tfoot repeat on every page */
-        display: table-footer-group;
+      .print-wrapper-table > tfoot {
+        display: table-footer-group; /* Native Repeating Zone: Chrome MUST reserve this space after tbody */
       }
 
-      .ppt > tbody {
-        display: table-row-group;
-      }
-
-      .ppt > thead > tr,
-      .ppt > tfoot > tr,
-      .ppt > tbody > tr {
-        display: table-row;
-      }
-
-      .ppt > thead > tr > td,
-      .ppt > tfoot > tr > td,
-      .ppt > tbody > tr > td {
-        display: table-cell;
-        padding: 0;
-        vertical-align: top;
-        width: 100%;
-      }
-
-      /* ── Running header (slim bar) — appears on every page via thead ── */
       .running-header {
+        height: 10mm;
+        background: #1a3a5c !important;
         display: flex;
-        background: #1a3a5c;
-        border-bottom: 3px solid #1e90ff;
-        padding: 8px 28px;
         justify-content: space-between;
         align-items: center;
+        padding: 0 48px;
+        width: 100%;
+        border-bottom: 2px solid #1e90ff;
+      }
+
+      .running-header span { color: #ffffff !important; font-size: 11px; }
+
+      .running-footer {
+        height: 10mm;
+        background: #1a3a5c !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 48px;
         width: 100%;
       }
 
-      .running-header .rh-left {
-        color: #ffffff;
-        font-size: 11px;
-        font-weight: 700;
-      }
+      .running-footer span { color: #90c8f0 !important; font-size: 9px; }
 
-      .running-header .rh-right {
-        color: #b0d4f1;
-        font-size: 10px;
-      }
-
-      /* ── Full logo header: only shows on page 1 via page-header div ── */
+      /* Page 1 (Main Header): Overlays the native table row on the first page */
       .page-header {
-        padding: 20px 28px 16px;
-        margin-bottom: 0;
+        position: relative;
+        margin-top: -10mm; /* Pull up to fill the thead zone on Page 1 */
+        height: auto;
+        min-height: 10mm;
+        background: #1a3a5c !important;
+        display: flex;
+        align-items: center;
+        padding: 0 48px;
         width: 100%;
+        z-index: 100;
       }
 
-      /* ── Content page ── */
+      .page-header-text .ph-title { color: #ffffff !important; }
+      .page-header-text .ph-subtitle { color: #b0d4f1 !important; }
+      .page-header-text .ph-tagline { color: #7fbfdf !important; }
+
       .page {
         max-width: 100%;
-        padding: 16px 28px 20px;
+        padding: 10px 48px 20px;
         margin: 0;
+        background: #ffffff !important;
       }
 
-      /* ── Footer in tfoot — repeats on every page ── */
-      .footer-bar {
-        padding: 7px 28px;
-        width: 100%;
-      }
+      .footer { display: none; }
 
-      .footer-bar span {
-        color: #90c8f0;
-        font-size: 10px;
-      }
-
-      /* Hide the screen-only in-page footer */
-      .footer {
-        display: none;
-      }
-
-      /* ── Page break controls ── */
-      .section-bar {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-
-      .sub-header {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-
-      .content-block,
-      .data-table,
-      .skills-table,
-      .trait-list,
-      .reporting-box {
+      /* Page break controls */
+      .section-bar, .sub-header { page-break-after: avoid; break-after: avoid; }
+      .content-block, .data-table, .skills-table, .trait-list, .reporting-box, .info-table {
         page-break-inside: avoid;
         break-inside: avoid;
       }
-
-      .info-table {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
+    }
     }
   </style>
 </head>
 
 <body>
-
-  <!--
-    TABLE STRUCTURE FOR PRINT:
-    - <thead> repeats on EVERY printed page (slim running header bar)
-    - <tfoot> repeats on EVERY printed page (dark blue footer bar)
-    - <tbody> is the main content (flows across pages)
-    - On screen: all elements display as blocks, thead is hidden
-  -->
-  <table class="ppt" role="presentation">
-
-    <!-- Slim running header: hidden on screen, repeats on every printed page -->
+  <!-- THE NATIVE-LOCK TABLE (Physically reserves space to prevent overlap) -->
+  <table class="print-wrapper-table" role="presentation">
     <thead>
       <tr>
-        <td>
+        <td style="padding: 0;">
           <div class="running-header">
-            <span class="rh-left">ExamNurture</span>
-            <span class="rh-right">Operations &amp; Management Head — JD</span>
-          </div>
-        </td>
-      </tr>
-    </thead>
-
-    <!-- Footer: hidden on screen, repeats on every printed page -->
-    <tfoot>
-      <tr>
-        <td>
-          <div class="footer-bar">
-            <span>ExamNurture | www.examnurture.com | Supported by HJ</span>
+            <span>ExamNurture</span>
             <span>Operations &amp; Management Head — JD</span>
           </div>
         </td>
       </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td style="padding: 0;">
+          <div class="running-footer">
+            <div class="footer-bar" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+              <span>ExamNurture | www.examnurture.com | Supported by HJ</span>
+              <span>Operations &amp; Management Head — JD</span>
+            </div>
+          </div>
+        </td>
+      </tr>
     </tfoot>
-
-    <!-- Main content -->
     <tbody>
       <tr>
         <td>
-
-          <!-- Dark Blue Header (full-width, page 1 only since it's in normal flow) -->
-          <div class="page-header">
-            <img src="../examnurture_logo.jpg" alt="ExamNurture Logo" />
-            <div class="page-header-text">
-              <div class="ph-title">ExamNurture</div>
-              <div class="ph-subtitle">Powered by HJ — India's Exam Preparation Platform</div>
-              <div class="ph-tagline">Empowering Competitive Exam Aspirants Across India</div>
+          <div class="page-container">
+            <!-- PAGE 1 BRANDING (Overlays the native thead zone) -->
+            <div class="page-header">
+              <img src="../examnurture_logo.jpg" alt="ExamNurture Logo" />
+              <div class="page-header-text">
+                <div class="ph-title">ExamNurture</div>
+                <div class="ph-subtitle">Powered by HJ — India's Exam Preparation Platform</div>
+                <div class="ph-tagline">Empowering Competitive Exam Aspirants Across India</div>
+              </div>
             </div>
-          </div>
-
-          <div class="page">
+            
+            <div class="page">
 
             <!-- JD Banner -->
             <div class="jd-banner">
@@ -641,6 +598,14 @@
               <li><span class="diamond">◆</span><span>Strong communicator — knows how to escalate the right things to the right people.</span></li>
             </ul>
 
+            <!-- Salary & Compensation -->
+            <div class="section-bar">Salary &amp; Compensation</div>
+            <div class="content-block">
+              <ul style="list-style: disc; padding-left: 20px; font-size: 13.5px; color: #444;">
+                <li>Salary will be competitive and as per market standards.</li>
+              </ul>
+            </div>
+
             <!-- Reporting Structure -->
             <div class="reporting-box">
               <strong>Reporting Structure:</strong>&nbsp; You report to all three founders equally. Below you sits the Content
@@ -659,14 +624,12 @@
               <span>Operations &amp; Management Head — JD</span>
             </div>
 
-          </div><!-- /.page -->
-
+    </div><!-- /.page -->
+          </div><!-- /.page-container -->
         </td>
       </tr>
     </tbody>
-
-  </table><!-- /.ppt -->
+  </table>
 
 </body>
-
 </html>
