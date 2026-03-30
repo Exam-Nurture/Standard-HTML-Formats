@@ -16,7 +16,7 @@ To solve the "Header Overlap" issue in Chromium-based printing (Chrome/Edge/Brav
 5. **Page 1 Branding**: The main Logo Header is positioned within the `tbody` and pulls into the header zone on the first page to cover the thin repeating bar, providing custom branding for the document start.
 
 ## Directory Structure
-- `/JD`: This directory houses all Job Description html files. Each file contains internal CSS for standalone portability.
+- `/Job_Description`: This directory houses all Job Description html files. Each file contains internal CSS for standalone portability.
 - `examnurture_logo.jpg`: The primary brand asset.
 
 ## Principles

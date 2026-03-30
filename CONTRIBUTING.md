@@ -10,5 +10,5 @@ We welcome contributions to standardize our organizational documents.
 
 ## Process
 1. Create a branch for your template.
-2. Add the `.html` file into the appropriate directory (e.g., `/JD`).
+2. Add the `.html` file into the appropriate directory (e.g., `/Job_Description`).
 3. Commit and push for review.
