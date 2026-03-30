@@ -17,7 +17,7 @@ This repository contains high-quality, print-ready HTML templates designed with 
 ## Standards
 - **CSS**: Vanilla CSS for maximum flexibility.
 - **Fonts**: Modern serif/sans-serif combinations for professional appearance.
-- **Printing**: All new templates (v1.2.2+) MUST use the `<table><thead>/<tfoot>` structure for consistent multi-page header/footer repetition without content overlap.
+- **Printing**: All new templates (v1.2.2+) MUST use the `<table><thead>/<tfoot>` structure for consistent multi-page header/footer repetition without content overlap. Finalized v1.3.0 Associate JD.
 - **Compatibility**: Optimized for Chrome and Edge (Webkit-print-color-adjust).
 
 ## Printing Standards

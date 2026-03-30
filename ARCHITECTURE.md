@@ -11,7 +11,7 @@ The ExamNurture Standard HTML Formats repo is built upon a standard structure th
 To solve the "Header Overlap" issue in Chromium-based printing (Chrome/Edge/Brave), we have adopted a high-precision table architecture:
 1. **Physical Space Reservation**: The entire content is wrapped in a `<table class="print-wrapper-table">`.
 2. **Repeating Headers (`<thead>`)**: The slim header bar is placed inside a `<thead>` with `display: table-header-group` and a fixed height of **10mm**. This forces the browser to reserve the top 10mm of every page before starting the text.
-3. **Repeating Footers (`<tfoot>`)**: The blue branding bar is placed inside a `<tfoot>` with `display: table-footer-group` (10mm height), ensuring it sits below the text on every page without overlap.
+3. **Repeating Footers (`<tfoot>`)**: The blue branding bar is placed inside a `<tfoot>` with `display: table-footer-group` (10mm height), ensuring it sits below the text on every page without overlap. (v1.3.0: Associate Content Manager JD integrated).
 4. **Body Content (`<tbody>`)**: The JD content grows within the `<tbody>`, allowing Chrome to manage page breaks naturally between the header and footer rows.
 5. **Page 1 Branding**: The main Logo Header is positioned within the `tbody` and pulls into the header zone on the first page to cover the thin repeating bar, providing custom branding for the document start.
 
