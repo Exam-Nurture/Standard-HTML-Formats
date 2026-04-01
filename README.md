@@ -6,8 +6,15 @@ Repository for standardized HTML templates used across ExamNurture, including Jo
 This repository contains high-quality, print-ready HTML templates designed with modern web standards (Vanilla CSS) and responsive layout principles.
 
 ## Structure
-- `/Job_Description`: Job Description templates (CTO, CEO, Operations, etc.)
+- `/Job_Description`: Job Description templates (CTO, CEO, Operations, AI Engineer, etc.)
 - `examnurture_logo.jpg`: Standard branding assets
+
+## Available Roles
+- **AI Engineer Intern** (v1.4.0)
+- **Associate Content Manager** (v1.3.0)
+- **Operations & Management Head** (v1.2.2)
+- **CEO** (v1.0.0)
+- **CTO** (v1.0.0)
 
 ## How to Use
 1. Copy the desired `.html` template.
