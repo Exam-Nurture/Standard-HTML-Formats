@@ -1,6 +1,6 @@
-# Architecture: Standard HTML Formats
+# Architecture: Standard ExamNurture Formats
 
-The ExamNurture Standard HTML Formats repo is built upon a standard structure that ensures consistent visual branding and print-ready quality.
+The Standard ExamNurture Formats repo (formerly *Standard_HTML_Formats*) is built upon a standard structure that ensures consistent visual branding and print-ready quality across all official ExamNurture documents.
 
 ## Template Design Features
 1. **Responsive and Adaptive**: All templates are designed with standard screen resolutions in mind while prioritizing A4 print layouts.

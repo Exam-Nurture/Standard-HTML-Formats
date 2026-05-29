@@ -1,6 +1,8 @@
-# Standard HTML Formats (ExamNurture)
+# Standard ExamNurture Formats
 
-Repository for standardized HTML templates used across ExamNurture, including Job Descriptions, Official Documents, and Branding Assets.
+Repository for standardized, print-ready document templates used across ExamNurture — Job Descriptions, Official Documents, and Branding Assets. Built with vanilla HTML/CSS (no framework dependencies) and optimised for Chromium-based PDF generation.
+
+> Renamed from **Standard_HTML_Formats** → **Standard_ExamNurture_Formats** to reflect its broader role as ExamNurture's canonical document-format library (not HTML-only).
 
 ## Overview
 This repository contains high-quality, print-ready HTML templates designed with modern web standards (Vanilla CSS) and responsive layout principles.
